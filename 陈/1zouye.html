@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            list-style: none;
+        }
+        .btn{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <br>
+        <button @click='btn' class="btn">获取数据</button><br>
+        <ul>
+            <li v-for="(item,index) in arr">
+                <br>
+                <div>
+                    ID--- {{item._id}}
+                 </div>
+                <div>
+                   账号--- {{item.username}}
+                </div>
+                <div>
+                   密码--- {{item.password}}</div><br>
+            </li>
+        </ul>
+
+    </div>
+
+    <script src="../../../vue.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+    <script>
+
+        var app = new Vue({
+
+            el:'#app',
+            data:{
+                arr:[],
+                // username:'',
+            },
+            methods:{
+                btn(){
+                    axios({
+                        url:'http://localhost:5001/vuestudy',
+                        method:'get',
+                    }).then(res => {
+                        console.log(res);
+                        res.data.forEach(val => {
+                            this.arr.push(val)
+                        })
+                    })
+                }
+            }
+
+        })
+
+    </script>
+</body>
+</html>
